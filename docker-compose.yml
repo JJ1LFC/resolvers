@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  unbound:
+    build: ./unbound
+    image: jj1lfc/unbound
+    ports:
+      - "18053:53"
+      - "18053:53/udp"
+    restart: unless-stopped
+    container_name: unbound
+    networks:
+      test_resolvers:
+        ipv4_address: 172.53.0.2
+
+  bind:
+    build: ./bind
+    image: jj1lfc/bind
+    ports:
+      - "18153:53"
+      - "18153:53/udp"
+    restart: unless-stopped
+    container_name: bind
+    networks:
+      test_resolvers:
+        ipv4_address: 172.53.0.3
+
+  kresd:
+    build: ./knot-resolver
+    image: jj1lfc/kresd
+    ports:
+      - "18253:53"
+      - "18253:53/udp"
+    restart: unless-stopped
+    container_name: kresd
+    networks:
+      test_resolvers:
+        ipv4_address: 172.53.0.4
+
+networks:
+  test_resolvers:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.53.0.0/24
+
