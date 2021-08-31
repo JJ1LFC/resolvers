@@ -34,7 +34,7 @@ Because of restrictions of Docker for Mac, you cannot connect to containers dire
 
 
 | Implementation | Container IP addr.  | Host port  |
-| -------------- | ------------------- | ------ --- |
+| -------------- | ------------------- | ---------- |
 | Unbound        | 172.53.0.2          | 18053      |
 | BIND           | 172.53.0.3          | 18153      |
 | Knot Resolver  | 172.53.0.4          | 18253      |
